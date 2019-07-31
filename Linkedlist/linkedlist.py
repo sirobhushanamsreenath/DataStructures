@@ -28,7 +28,7 @@ class LinkedList():
     def insert(self, data):
         new_node = Node()
         new_node.data = data
-        print(self.length)
+        # print(self.length)
         if self.length == 0:
             self.head = new_node
             self.length += 1
@@ -57,7 +57,7 @@ class LinkedList():
     def find_middle_element(self):
         count = 0
         mid_pos = self.length / 2
-        if mid_pos % 2 == 0:
+        if self.length % 2 == 0:
             print('mid elements are at position {} and {}'.format(
                 int(mid_pos), int(mid_pos + 1)))
             current = self.head
@@ -84,6 +84,12 @@ print(mylist.insert(1))
 print(mylist.insert(2))
 print(mylist.insert(3))
 print(mylist.insert(8))
+print(mylist.insert(10))
+print(mylist.insert(11))
+print(mylist.insert(12))
+print(mylist.insert(13))
+print(mylist.insert(14))
+print(mylist.insert(15))
 print('Elements of linked list')
 mylist.printNode()
 # mylist.find_nth_element(3)
