@@ -1,3 +1,4 @@
+
 class Node:
     def __init__(self, data=None, next=None, previous=None):
         self.data = data
@@ -37,7 +38,7 @@ class DoubleLinkedList:
 
     def insert_at_beginning(self, data):
         new_node = Node(data, None, None)
-        if self.length == 0 and self.head == self.tail:
+        if self.tail == None:
             self.head = self.tail = new_node
             self.length += 1
         else:
@@ -46,45 +47,40 @@ class DoubleLinkedList:
             current.set_previous(new_node)
             self.head = new_node
             self.length += 1
+        # import ipdb
+        # ipdb.set_trace()
 
     def insert_at_ending(self, data):
         if self.length == 0 and self.head == self.tail:
             self.insert_at_beginning(data)
         else:
-            current = self.head
-            while current.has_next():
-                current = current.get_next()
-            current.set_next(Node(data, None, current))
-            self.tail = current.get_next()
+            new_node = Node(data, None, self.tail)
+            self.tail.set_next(new_node)
+            self.tail = new_node
             self.length += 1
 
     def insert_at_middle(self, pos, data):
-        if pos > self.length or pos < 0:
-            return None
+        # need to change
+        # if pos > self.length or pos < 0:
+        #     return None
+        # else:
+        if pos <= 0:
+            self.insert_at_beginning(data)
+        # need to change
+        elif pos >= self.length:
+            self.insert_at_ending(data)
         else:
-            if pos == 0:
-                self.insert_at_beginning(data)
-            else:
-                current = self.head
-                # print(current.get_data())
-                new_node = Node(data, None, None)
-                # print(new_node.get_data())
-                count = 0
-                # print(pos)
-                while (count < pos-1):
-                    # print(pos)
-                    current = current.get_next()
-                    count += 1
-                new_node.set_next(current.get_next())
-                # print(new_node.get_next().get_data())
-                new_node.set_previous(current)
-                # print(new_node.get_previous().get_data())
-                temp = current.get_next()
-                temp.set_previous(new_node)
-                # print(current.get_next().get_previous().get_data())
-                new_node.set_previous(current)
-                # print(new_node.get_previous().get_data())
-                self.length += 1
+            current = self.head
+            count = 0
+            while (count < pos-1):
+                current = current.get_next()
+                count += 1
+            new_node = Node(data, current.get_next(), current)
+            # new_node.set_next(current.get_next())
+            # new_node.set_previous(current)
+            current.get_next().set_previous(new_node)
+            current.set_next(new_node)
+            self.length += 1
 
     def delete_at_beginning(self):
         if self.length == 0:
@@ -97,33 +93,31 @@ class DoubleLinkedList:
             self.length -= 1
 
     def delete_at_ending(self):
-        # current = DoubleLinkedList()
         current = self.head
-        # print(current)
         while current.has_next():
             current = current.get_next()
         current.get_previous().set_next(None)
         current.set_next(None)
         self.length -= 1
 
-    # under development
-
-    # def delete_at_middle(self, pos, data):
-    #     if pos > self.length or pos < 0:
-    #         return None
-    #     else:
-    #         # This will delete the first irrespective of data
-    #         if pos == 0:
-    #             self.delete_at_beginning()
-    #         else:
-    #             count = 0
-    #             current = self.head
-    #             while count < pos - 1:
-    #                 current = current.get_next()
-    #                 count += 1
-    #             # print('current is {}', current.get_data())
-    #             print(current.get_next().get_next().get_data())
-    #             current.set_next(current.get_next().get_next().get_data())
+    def delete_at_middle(self, pos):
+        if pos > self.length or pos < 0:
+            return None
+        else:
+            # This will delete nodes, irrespective of data
+            if pos == 0:
+                self.delete_at_beginning()
+            elif pos >= self.length - 1:
+                self.delete_at_ending()
+            else:
+                count = 0
+                current = self.head
+                while count < pos - 1:
+                    current = current.get_next()
+                    count += 1
+                current.set_next(current.get_next().get_next())
+                current.get_next().set_previous(current)
+                self.length -= 1
 
     def print_linked_list(self):
         current = self.head
@@ -133,18 +127,22 @@ class DoubleLinkedList:
 
 
 mylist = DoubleLinkedList()
-mylist.insert_at_beginning(2)
+# mylist.insert_at_beginning(2)
+
+# mylist.insert_at_ending(3)
+# mylist.insert_at_ending(4)
 mylist.insert_at_beginning(1)
 mylist.insert_at_ending(3)
-mylist.insert_at_ending(4)
-# mylist.insert_at_middle(2, 4)
-# mylist.delete_at_beginning()
+# mylist.print_linked_list()
+mylist.insert_at_middle(1, 2)
+mylist.delete_at_beginning()
 # mylist.delete_at_beginning()
 # mylist.delete_at_beginning()
 # mylist.print_linked_list()
 # mylist.delete_at_beginning()
 # mylist.print_linked_list()
-# mylist.delete_at_ending()
-mylist.print_linked_list()
-mylist.delete_at_middle(2, 4)
+mylist.delete_at_ending()
+# mylist.print_linked_list()
+# mylist.delete_at_middle(10)
+print('After insertion')
 mylist.print_linked_list()
