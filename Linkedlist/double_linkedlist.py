@@ -96,19 +96,34 @@ class DoubleLinkedList:
             temp.set_previous(None)
             self.length -= 1
 
-    # Under development
+    def delete_at_ending(self):
+        # current = DoubleLinkedList()
+        current = self.head
+        # print(current)
+        while current.has_next():
+            current = current.get_next()
+        current.get_previous().set_next(None)
+        current.set_next(None)
+        self.length -= 1
 
-    # def delete_at_ending(self):
-    #     current = self.head
-    #     # print(current)
-    #     while current.has_next():
-    #         print('current is : {}', current.get_data())
-    #         current = current.get_next()
-    #     # current.set_next(None)
-    #     # print(current.get_data())
-    #     current.set_previous(None)
-    #     current.get_previous().set_next(None)
-    #     self.length -= 1
+    # under development
+
+    # def delete_at_middle(self, pos, data):
+    #     if pos > self.length or pos < 0:
+    #         return None
+    #     else:
+    #         # This will delete the first irrespective of data
+    #         if pos == 0:
+    #             self.delete_at_beginning()
+    #         else:
+    #             count = 0
+    #             current = self.head
+    #             while count < pos - 1:
+    #                 current = current.get_next()
+    #                 count += 1
+    #             # print('current is {}', current.get_data())
+    #             print(current.get_next().get_next().get_data())
+    #             current.set_next(current.get_next().get_next().get_data())
 
     def print_linked_list(self):
         current = self.head
@@ -118,9 +133,10 @@ class DoubleLinkedList:
 
 
 mylist = DoubleLinkedList()
-mylist.insert_at_beginning(1)
 mylist.insert_at_beginning(2)
+mylist.insert_at_beginning(1)
 mylist.insert_at_ending(3)
+mylist.insert_at_ending(4)
 # mylist.insert_at_middle(2, 4)
 # mylist.delete_at_beginning()
 # mylist.delete_at_beginning()
@@ -128,5 +144,7 @@ mylist.insert_at_ending(3)
 # mylist.print_linked_list()
 # mylist.delete_at_beginning()
 # mylist.print_linked_list()
-mylist.delete_at_ending()
+# mylist.delete_at_ending()
+mylist.print_linked_list()
+mylist.delete_at_middle(2, 4)
 mylist.print_linked_list()
