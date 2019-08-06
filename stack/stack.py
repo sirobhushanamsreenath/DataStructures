@@ -33,9 +33,14 @@ class Stack:
         else:
             self.top = current.next
 
+    def peek(self):
+        print(self.top.data)
+
 
 mystack = Stack()
 mystack.push(2)
 mystack.push(1)
-mystack.pop()
-mystack.print_stack()
+mystack.push(3)
+# mystack.pop()
+# mystack.print_stack()
+mystack.peek()
