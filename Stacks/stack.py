@@ -1,3 +1,6 @@
+# Implementation of stack data structure using linkedlist
+
+
 class Node:
     def __init__(self, data=None, next=None):
         self.next = next
